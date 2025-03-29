@@ -1,0 +1,30 @@
+Homework/hw2-config.ini
+Final Project/FinalProject-Config.ini
+
+# macOS files
+.DS_Store
+
+# IDE directories
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints
+
+# Binary files (add specific files/extensions as needed)
+*.dmg
+*.zip
+*.ics
+*.pdf
+*.xls
+*.xlsx
+*.docx
+*.tsv
+*.csv
+
+# Sensitive data files or any specific files you prefer not to push explicitly
+data/

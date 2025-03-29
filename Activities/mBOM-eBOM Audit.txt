@@ -1,0 +1,52 @@
+import pandas as pd
+import numpy as np
+import datetime
+
+########
+
+abc = {'Sport' : ['Basketball', 'Baseball', 'Hockey','Cricket', 'Football'], 'Year' : ['2021','2021','2022','2022','2022'], 'ID' : ['1','2','3','4','5']}
+abc = pd.DataFrame({k: pd.Series(v) for k, v in abc.items()})
+abc
+
+###########
+
+xyz = {'Sport' : ['Football', 'Football', 'Basketball', 'Baseball', 'Hockey', 'Soccer'], 'SportLeague' : ['Football:NFL', 'Football:XFL', 'Basketball:NBA', 'Baseball:MLB', 'Hockey:NHL', 'Soccer:MLS'], 'Year' : ['2022','2019', '2022','2022','2022', '2022'], 'ID' : ['2','0', '3','2','4', '1']}
+xyz = pd.DataFrame({k: pd.Series(v) for k, v in xyz.items()})
+xyz = xyz.sort_values(by = ['ID'], ascending = True)
+xyz
+
+############
+
+df = xyz.merge(abc, on='Sport', how='outer', suffixes=('_xyz','_abc'))
+df = df[['Sport', 'Year_abc', 'ID_abc','SportLeague', 'Year_xyz', 'ID_xyz']]
+df
+
+##############
+
+conditions  = [ df.Year_abc.isnull(), 
+               df.Year_xyz.isnull(), 
+               (df.Year_abc != df.Year_xyz) & (df.ID_abc != df.ID_xyz),
+               df.Year_abc != df.Year_xyz,
+               df.ID_abc != df.ID_xyz
+               ]
+
+choices     = [ 'Sport not in abc', 
+               'Sport not in xyz', 
+               'Change year and ID to abc', 
+               'Change year to abc',
+               'Change ID to abc']
+
+colors = ['#D2122E', 'khaki', 'darkkhaki', 'indianred', 'gold']
+
+df['action'] = np.select(conditions, choices, default=np.nan)
+
+s = df.style.apply(lambda x: [f"background-color:{colors[choices.index(x)]}" if x in choices else f"background-color:{None}" for x in df.action] , subset=["action"])
+s
+
+###########
+
+#Export to Excel
+
+filename = 'Audit-mBOM-eBOM'
+Date_Time = datetime.datetime.now()
+s.to_excel(f"{filename}{'_'}{Date_Time}.xlsx", index=False)

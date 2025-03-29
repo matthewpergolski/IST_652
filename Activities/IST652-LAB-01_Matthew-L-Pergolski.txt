@@ -1,0 +1,19 @@
+file = open('/Users/pergolicious/Downloads/nba-attendance-1989.txt', 'r')
+
+NBAlist = []
+attendance = []
+price = []
+
+for line in file:
+    textline = line.strip()
+    item = textline.split()
+    NBAlist.append(item)
+
+    
+for (city, att, cost) in NBAlist:
+    city = str(city)
+    att = int(att)
+    cost = float(cost)
+    print('The attendance at',city,'was',att,'and the ticket price was','${:,.2f}'.format(cost))
+    
+file.close()

@@ -1,0 +1,33 @@
+# Dictionary Used
+
+word_freq = {'the':58, 'people':6, 'beautiful':8, 'cats':13, 'finally':9, 'this': 19, 'class': 21, 'is': 101, 'almost': 1, 'over':4}
+
+# Function Developed:
+
+def greaterthany(x, y):
+    listgreaterthany = []
+    for k, v in word_freq.items():
+        if int(v) > int(y):
+            listgreaterthany.append(k)
+    return listgreaterthany
+#Threshold Number 1 function and parameters
+
+greaterthany(word_freq, 11)
+
+#Output for Threshold Number 1 -- copied and pasted from my JupyterLab Desktop App output
+
+['the', 'cats', 'this', 'class', 'is']
+#Threshold Number 2 function and parameters
+
+greaterthany(word_freq, 15)
+
+#Output for Threshold Number 2 -- copied and pasted from my JupyterLab Desktop App output
+
+['the', 'this', 'class', 'is']
+#Threshold Number 3 function and parameters
+
+greaterthany(word_freq, 20)
+
+#Output for Threshold Number 3 -- copied and pasted from my JupyterLab Desktop App output
+
+['the', 'class', 'is']

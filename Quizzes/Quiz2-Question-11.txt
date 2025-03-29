@@ -1,0 +1,84 @@
+# Import needed packages
+
+import pandas as pd
+import numpy as np
+
+# Choose pandas dataframe as the data read-in option (versus the numpy option)
+
+dataa = pd.read_csv('/Users/pergolicious/Downloads/eur.pop.rev.csv')
+dataa.info()
+# Output
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 23 entries, 0 to 22
+Data columns (total 8 columns):
+ #   Column                           Non-Null Count  Dtype 
+---  ------                           --------------  ----- 
+ 0   European Population (1989-1995)  19 non-null     object
+ 1   Unnamed: 1                       19 non-null     object
+ 2   Unnamed: 2                       17 non-null     object
+ 3   Unnamed: 3                       19 non-null     object
+ 4   Unnamed: 4                       19 non-null     object
+ 5   Unnamed: 5                       19 non-null     object
+ 6   Unnamed: 6                       19 non-null     object
+ 7   Unnamed: 7                       19 non-null     object
+dtypes: object(8)
+memory usage: 1.6+ KB
+
+# Rename columns as the dates | keep only particular rows as defined below
+
+dataa.columns = dataa.iloc[1,:]
+dataa = dataa.iloc[2:19,:]
+
+# Reset the index to be country names
+
+dataa.columns
+dataa = dataa.set_index(np.nan)
+
+# 1. Replace missing data with 0
+
+data = dataa.replace(np.nan, 0)
+data = data.apply(pd.to_numeric)
+
+# 2. Print each country that has more than 1,000,000 people in 1995
+
+data2 = data[data['01.01.95'] > 1000000]
+data2 = data2.iloc[:,6]
+print(data2)
+print('Output of countries with population greater than 1000000')
+# Output
+nan
+Austria            8054800
+Belgium           10143047
+Denmark            5251027
+Finland            5116800
+France            58265400
+Germany           81845000
+Ireland            3591200
+Italy             57268578
+Netherland        15492800
+Norway             4370000
+Portugal           9920800
+Spain             39241900
+Sweden             8837000
+Switzerland        7060400
+United Kingdom    58684000
+Name: 01.01.95, dtype: int64
+Output of countries with population greater than 1000000
+
+# 3. Print the average population in the United Kingdom over those seven years
+
+data3 = data.loc['United Kingdom']
+data3 = data3.apply(np.mean)
+print(data3)
+print('Average population in the United Kingdom over the seven years referenced in the data set')
+# Output
+1
+01.01.89    57236200.0
+01.01.90    57410600.0
+01.01.91    57649200.0
+01.01.92    58888800.0
+01.01.93    58191230.0
+01.01.94    58380000.0
+01.01.95    58684000.0
+Name: United Kingdom, dtype: float64
+Average population in the United Kingdom over the seven years referenced in the data set

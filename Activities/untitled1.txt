@@ -1,0 +1,13 @@
+9.3
+
+Match the URLs (there should be three results).
+--http
+--//
+--:/
+Match the phone numbers (three results).
+--[(]|[)]
+--9999
+Match the e-mail addresses (two results).
+--@
+Match acronyms (there should be two results, with or without dots: CA and U.S.A.).
+--[.]

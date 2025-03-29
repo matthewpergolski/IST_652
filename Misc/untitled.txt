@@ -1,0 +1,5 @@
+# Rename columns to ones that make more sense
+df = df.rename(columns={'homeowner dummy':'Homeowner','NUMCHLD':'Number_of_Children','INCOME':'Income','gender dummy':'Gender',
+                        'WEALTH':'Wealth','HV':'Avg_Home_Value','Icmed':'Median_Family_Income','Icavg':'Average_Family_Income',
+                       'NUMPROM':'Number_of_Promotions','RAMNTALL':'Lifetime_Gifts_TD','MAXRAMNT':'Max_Gifts_TD','LASTGIFT':'Recent_Gift',
+                       'totalmonths':'Months_Since_Last_Donation','TIMELAG':'Timelag','AVGGIFT':'Avg_Gift','TARGET_B':'Donor','TARGET_D':'Donation_Amt'})

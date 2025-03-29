@@ -1,0 +1,63 @@
+# LAB ASSIGNMENT 3
+
+## LAB ACTIVITY THREE: Working with FUNCTIONS. 
+
+### Problem 1:
+
+Write a Python function to multiply all the numbers in a list. 
+    Sample List : (8, 2, 3, -1, 7)
+    
+    Expected Output : -336
+
+    Execute the function with at least 3 different lists of numbers.
+
+### Problem 2:
+
+Sample String : 'The quick Brown Fox’
+
+Execute the function with at least 2 different phrases.
+
+
+Submit your code for Problem 1 and 2, along with your output from the running of your code in both Problem 1 and Problem 2, in a Word document.
+Due 24 hours before the live session in Week 7.
+ Write a Python function that accepts a string and calculate the number of upper
+ case letters and lower case letters.
+ 
+import pandas as pd
+import numpy as np
+
+# Problem 1:
+# Write a Python function to multiply all the numbers in a list.
+# Sample List : (8, 2, 3, -1, 7)
+# Expected Output : -336
+# Execute the function with at least 3 different lists of numbers.
+
+# SampleTuple : (8, 2, 3, -1, 7)
+SampleList = [8, 2, 3, -1, 7]
+print(np.prod(SampleList))
+
+# SampleTuple2 : (4,5,2,59,-43)
+SampleList2 = [4,5,2,59,-43]
+print(np.prod(SampleList2))
+
+# SampleTuple3 : (-4,87,-2,109,6)
+SampleList3 = [-4,87,-2,109,6]
+print(np.prod(SampleList3))
+
+
+# Problem 2:
+# Write a Python function that accepts a string and calculate the number of upper case letters and lower case letters.
+# Sample String : 'The quick Brown Fox’
+# Execute the function with at least 2 different phrases.
+
+inputstring = "The quick Brown Fox"
+lowercase = 0
+uppercase = 0
+for i in inputstring:
+      if(i.islower()):
+            lowercase = lowercase + 1
+      elif(i.isupper()):
+            uppercase = uppercase + 1
+print("Lowercase count:", lowercase)
+print("Uppercase count:", uppercase)
+

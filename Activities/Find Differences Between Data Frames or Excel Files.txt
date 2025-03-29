@@ -1,0 +1,297 @@
+import pandas as pd
+import numpy as np
+from tkinter import *
+from tkinter import filedialog
+
+################
+
+#Theoretical Code
+
+###############
+
+b = pd.DataFrame(
+    {
+        "A": ["1", 2, "3", 4, "5"],
+        "B": ["abcd", "efgh", "ijkl", "uhyee", "uhuh"],
+        "C": ["jamba", "refresh", "portobello", "performancehigh", "jackalack"],
+        "D": ["OQEWINVSKD", "DKVLNQIOEVM", "asdlikvn", "asdkvnddvfvfkdd", np.nan],
+    }
+)
+b
+
+#################
+
+a = pd.DataFrame(
+    {
+        "A": ["1", 2, "3", 4, "5", 6],
+        "B": ["dah", "fupa", "ijkl", "danju", "uhuh", "freshhhhhhh"],
+        "C": [
+            "jamba",
+            "dimez",
+            "pocketfresh",
+            "reverbb",
+            "jackalack",
+            "boombackimmatouchit",
+        ],
+    }
+)
+a
+
+##################
+
+def equalize_length(short, long):
+    return pd.concat(
+        [
+            short,
+            pd.DataFrame(
+                {
+                    col: ["nan"] * (long.shape[0] - short.shape[0])
+                    for col in short.columns
+                }
+            ),
+        ]
+    ).reset_index(drop=True)
+
+
+def equalize_width(short, long):
+    return pd.concat(
+        [
+            short,
+            pd.DataFrame({col: [] for col in long.columns if col not in short.columns}),
+        ],
+        axis=1,
+    ).reset_index(drop=True)
+
+
+def equalize(df, other_df):
+    if df.shape[0] <= other_df.shape[0]:
+        df = equalize_length(df, other_df)
+    else:
+        other_df = equalize_length(other_df, df)
+    if df.shape[1] <= other_df.shape[1]:
+        df = equalize_width(df, other_df)
+    else:
+        other_df = equalize_width(other_df, df)
+    df = df.fillna("nan")
+    other_df = other_df.fillna("nan")
+    return df, other_df
+
+######################
+
+a, b = equalize(a, b)
+
+a = a.replace({np.nan: ''}).replace('nan', '')
+b = b.replace({np.nan: ''}).replace('nan', '')
+
+comparevalues = a.values == b.values
+
+rows, cols = np.where(comparevalues == False)
+
+for item in zip(rows, cols):
+    a.iloc[item[0], item[1]] = " {} --> {} ".format(
+        a.iloc[item[0], item[1]], b.iloc[item[0], item[1]]
+    )
+a
+
+##################
+
+# Example of Excel File Comparison
+
+#################
+
+OLDdf = pd.read_excel(r'insert file path here', sheet_name = 'Sheet6')
+OLDdf = pd.DataFrame(OLDdf)
+OLDdf
+
+##############
+
+NEWdf = pd.read_excel(r'insert file path here', sheet_name = 'Sheet7')
+NEWdf = pd.DataFrame(NEWdf)
+NEWdf
+
+#################
+
+def equalize_length(short, long):
+    return pd.concat(
+        [
+            short,
+            pd.DataFrame(
+                {
+                    col: ["nan"] * (long.shape[0] - short.shape[0])
+                    for col in short.columns
+                }
+            ),
+        ]
+    ).reset_index(drop=True)
+
+
+def equalize_width(short, long):
+    return pd.concat(
+        [
+            short,
+            pd.DataFrame({col: [] for col in long.columns if col not in short.columns}),
+        ],
+        axis=1,
+    ).reset_index(drop=True)
+
+
+def equalize(df, other_df):
+    if df.shape[0] <= other_df.shape[0]:
+        df = equalize_length(df, other_df)
+    else:
+        other_df = equalize_length(other_df, df)
+    if df.shape[1] <= other_df.shape[1]:
+        df = equalize_width(df, other_df)
+    else:
+        other_df = equalize_width(other_df, df)
+    df = df.fillna("nan")
+    other_df = other_df.fillna("nan")
+    return df, other_df
+    
+#######################
+
+#OLDdf, NEWdf = equalize(OLDdf, NEWdf)
+OLDdf, NEWdf = equalize(OLDdf.replace({np.nan: ''}).replace('nan', ''), NEWdf.replace({np.nan: ''}).replace('nan', ''))
+
+OLDdf = OLDdf.replace({np.nan: ''}).replace('nan', '')
+NEWdf = NEWdf.replace({np.nan: ''}).replace('nan', '')
+
+comparevalues = OLDdf.values == NEWdf.values
+
+rows, cols = np.where(comparevalues == False)
+
+for item in zip(rows, cols):
+    OLDdf.iloc[item[0], item[1]] = " {} --> {} ".format(
+        OLDdf.iloc[item[0], item[1]], NEWdf.iloc[item[0], item[1]]
+    )
+
+OLDdf
+
+
+#####################
+
+#OLDdf.to_excel('OLDdf-vs-NEWdf.xlsx',index=False, headers = True)
+inpt = input("Name your file")
+OLDdf.to_excel(f"{inpt}{'_'}{Date_Time}.xlsx", index=False)
+
+####################
+
+# Code Wrapped In One Block
+
+###################
+
+import pandas as pd
+import numpy as np
+from tkinter import *
+from tkinter import filedialog
+import datetime
+
+b = pd.DataFrame(
+    {
+        "A": ["1", 2, "3", 4, "5"],
+        "B": ["abcd", "efgh", "ijkl", "uhyee", "uhuh"],
+        "C": ["jamba", "refresh", "portobello", "performancehigh", "jackalack"],
+        "D": ["OQEWINVSKD", "DKVLNQIOEVM", "asdlikvn", "asdkvnddvfvfkdd", np.nan],
+    }
+)
+
+b = b.replace({np.nan: ''})
+
+a = pd.DataFrame(
+    {
+        "A": ["1", 2, "3", 4, "5", 6],
+        "B": ["dah", "fupa", "ijkl", "danju", "uhuh", "freshhhhhhh"],
+        "C": [
+            "jamba",
+            "dimez",
+            "pocketfresh",
+            "reverbb",
+            "jackalack",
+            "boombackimmatouchit",
+        ],
+    }
+)
+
+a = a.replace({np.nan: ''})
+
+def equalize_length(short, long):
+    return pd.concat(
+        [
+            short,
+            pd.DataFrame(
+                {
+                    col: [np.nan] * (long.shape[0] - short.shape[0])
+                    for col in short.columns
+                }
+            ),
+        ]
+    ).reset_index(drop=True)
+
+
+def equalize_width(short, long):
+    return pd.concat(
+        [
+            short,
+            pd.DataFrame({col: [] for col in long.columns if col not in short.columns}),
+        ],
+        axis=1,
+    ).reset_index(drop=True)
+
+
+def equalize(df, other_df):
+    if df.shape[0] <= other_df.shape[0]:
+        df = equalize_length(df, other_df)
+    else:
+        other_df = equalize_length(other_df, df)
+    if df.shape[1] <= other_df.shape[1]:
+        df = equalize_width(df, other_df)
+    else:
+        other_df = equalize_width(other_df, df)
+    df = df.fillna(np.nan)
+    other_df = other_df.fillna(np.nan)
+    return df, other_df
+
+
+b = b.replace('nan', '').replace({np.nan:''})
+a = a.replace('nan', '').replace({np.nan:''})
+
+
+a, b = equalize(a.replace('nan', '').replace({np.nan:''}), b.replace('nan', '').replace({np.nan:''}))
+
+
+b = b.replace('nan', '').replace({np.nan:''})
+a = a.replace('nan', '').replace({np.nan:''})
+
+comparevalues = a.values == b.values
+
+rows, cols = np.where(comparevalues == False)
+
+for item in zip(rows, cols):
+    a.iloc[item[0], item[1]] = " {} --> {} ".format(
+        a.iloc[item[0], item[1]], b.iloc[item[0], item[1]]
+    )
+a
+#filename = 'Idontlikenans'
+#Date_Time = datetime.datetime.now()
+#a.to_excel(f"{filename}{'_'}{Date_Time}.xlsx", index=False)
+
+########################
+
+def color_differences(val):
+    if not isinstance(val, str):
+        return "color: "
+    if "nan --> nan" in val or val == "nan":
+        color = "yellow"
+    elif "nan -->" in val:
+        color = "green"
+    elif "--> nan" in val:
+        color = "red"
+    else:
+        color = ""
+    return f"color: {color}"
+
+
+
+
+
+
